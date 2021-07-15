@@ -1,5 +1,6 @@
 package com.haulmont.views;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,19 +22,17 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.tabs.TabsVariant;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.router.PageTitle;
-import com.haulmont.views.edit.EditClientView;
-import com.haulmont.views.edit.EditCreditView;
-import com.haulmont.views.edit.EditBankView;
+import com.haulmont.views.edit.client.EditClientView;
+import com.haulmont.views.edit.credit.EditCreditView;
+import com.haulmont.views.edit.bank.EditBankView;
 import com.haulmont.views.menu.ClientsAndCreditsView;
 import com.haulmont.views.menu.CreditOfferView;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.component.avatar.Avatar;
+import org.springframework.beans.factory.annotation.Autowired;
 
-/**
- * The main view is a top-level placeholder for other views.
- */
 @PWA(name = "Credit Bank", shortName = "Credit Bank", enableInstallPrompt = false)
 @Theme(themeFolder = "creditbank", variant = Lumo.DARK)
 @PageTitle("Main")
@@ -45,34 +44,31 @@ public class MainLayout extends AppLayout {
         private String iconClass;
         private Class<? extends Component> view;
 
-        public MenuItemInfo(String text, String iconClass, Class<? extends Component> view) {
+        public MenuItemInfo( String text, String iconClass, Class<? extends Component> view) {
             this.text = text;
             this.iconClass = iconClass;
             this.view = view;
         }
-
         public String getText() {
             return text;
         }
-
         public String getIconClass() {
             return iconClass;
         }
-
         public Class<? extends Component> getView() {
             return view;
         }
-
     }
 
     private final Tabs menu;
     private H1 viewTitle;
 
-    public MainLayout() {
+    public MainLayout(/*@Autowired GreetService service*/) throws ParseException {
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
         menu = createMenu();
         addToDrawer(createDrawerContent(menu));
+//        service.createBD();
     }
 
     private Component createHeaderContent() {
@@ -121,19 +117,20 @@ public class MainLayout extends AppLayout {
         return tabs;
     }
 
+    @Autowired
     private List<Tab> createMenuItems() {
         MenuItemInfo[] menuItems = new MenuItemInfo[]{ //
-                new MenuItemInfo("MainMenu", "la la-file", MainMenuView.class), //
+                new MenuItemInfo("Главное меню", "", MainMenuView.class), //
 
-                new MenuItemInfo("EditClient", "la la-file", EditClientView.class), //
+                new MenuItemInfo("Изменение клиентов", "",EditClientView.class), //
 
-                new MenuItemInfo("EditCredit", "la la-file", EditCreditView.class), //
+                new MenuItemInfo("Изменение кредитов", "", EditCreditView.class), //
 
-                new MenuItemInfo("EditBank", "la la-file", EditBankView.class), //
+                new MenuItemInfo("Изменение банка", "", EditBankView.class), //
 
-                new MenuItemInfo("ClientsAndCredits", "la la-file", ClientsAndCreditsView.class), //
+                new MenuItemInfo("Клиенты и кредиты", "", ClientsAndCreditsView.class), //
 
-                new MenuItemInfo("CreditOffer", "la la-file", CreditOfferView.class), //
+                new MenuItemInfo("Кредитное предложение", "", CreditOfferView.class), //
 
         };
         List<Tab> tabs = new ArrayList<>();

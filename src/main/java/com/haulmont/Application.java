@@ -13,7 +13,7 @@ import com.vaadin.flow.component.dependency.NpmPackage;
 @ImportResource(("classpath:applicationContext.xml"))
 public class Application extends SpringBootServletInitializer {
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         LaunchUtil.launchBrowserInDevelopmentMode(SpringApplication.run(Application.class, args));
     }
 

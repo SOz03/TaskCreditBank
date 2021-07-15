@@ -141,6 +141,11 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>flow-server</artifactId>
+            <version>2.7.0.alpha1</version>
+        </dependency>
 
         <dependency>
             <groupId>com.vaadin</groupId>
@@ -152,6 +157,19 @@
                     <artifactId>vaadin-core</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+<!--        DataProvider-->
+<!--        <dependency>-->
+<!--            <groupId>com.vaadin</groupId>-->
+<!--            <artifactId>vaadin-server</artifactId>-->
+<!--            <version>8.13.0</version>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-crud-flow</artifactId>
+            <version>${vaadin.version}</version>
         </dependency>
 
         <dependency>
