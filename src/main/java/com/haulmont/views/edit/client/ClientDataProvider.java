@@ -24,7 +24,6 @@ public class ClientDataProvider extends AbstractBackEndDataProvider<Client, Crud
     private final ClientService clientService;
     private final List<Client> clients;
 
-
     private Consumer<Long> sizeChangeListener;
 
     public ClientDataProvider(@Autowired ClientService clientService) {
@@ -120,10 +119,11 @@ public class ClientDataProvider extends AbstractBackEndDataProvider<Client, Crud
             int position = clients.indexOf(existingItem.get());
 
             clients.remove(existingItem.get());
-            clientService.delete(existingItem.get().getIdClient());
-
             clients.add(position, item);
             clientService.update(item);
+//            clientService.updateUserById(item.getIdClient(), item.getNumberPassport(),
+//                    item.getFirstName(), item.getLastName(), item.getMiddleName(),
+//                    item.getPhoneNumber(),item.getMail(), item.getBank().getIdBank());
         } else {
             clients.add(item);
             clientService.update(item);

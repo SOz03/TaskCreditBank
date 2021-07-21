@@ -19,17 +19,16 @@ public class Bank {
     @Column(name = "name_bank")
     private String nameBank;
 
-    @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY, mappedBy = "mainBank")
+    @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY, mappedBy = "bank")
     private List<Client> clients;
 
     public Bank() {
 
     }
 
-    public Bank(String nameBank, List<Client> clients) {
+    public Bank(String nameBank) {
         this.idBank = UUID.randomUUID().toString();
         this.nameBank = nameBank;
-        this.clients = clients;
     }
 
     public String getIdBank() {
@@ -59,10 +58,6 @@ public class Bank {
 
     @Override
     public String toString() {
-        return "Bank{" +
-                "idBank='" + idBank + '\'' +
-                ", nameBank='" + nameBank + '\'' +
-                ", clients=" + clients +
-                '}';
+        return nameBank;
     }
 }

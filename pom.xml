@@ -159,6 +159,12 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-select-flow</artifactId>
+        </dependency>
+
+
 <!--        DataProvider-->
 <!--        <dependency>-->
 <!--            <groupId>com.vaadin</groupId>-->

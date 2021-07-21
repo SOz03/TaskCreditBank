@@ -14,5 +14,7 @@
         <mapping class="com.haulmont.model.entity.Client"/>
         <mapping class="com.haulmont.model.entity.Credit"/>
         <mapping class="com.haulmont.model.entity.Bank"/>
+        <mapping class="com.haulmont.model.entity.CreditOffer"/>
+        <mapping class="com.haulmont.model.entity.PaymentGraph"/>
     </session-factory>
 </hibernate-configuration>

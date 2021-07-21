@@ -76,9 +76,6 @@ public class Credit {
 
     @Override
     public String toString() {
-        return "Кредит" +
-                "лимит " + creditLimit +
-                ", процентная ставка=" + interestRate +
-                '}';
+        return "лимит " + creditLimit;
     }
 }

@@ -1,16 +1,13 @@
 package com.haulmont.views.menu;
 
-import com.haulmont.views.MainLayout;
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
-import com.vaadin.flow.server.StreamResource;
+import org.springframework.stereotype.Service;
 
-import java.io.ByteArrayInputStream;
-
+@Service
 @PageTitle("Главное меню")
 @Route(value = "welcome", layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)

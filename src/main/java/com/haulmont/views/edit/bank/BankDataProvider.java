@@ -118,8 +118,6 @@ public class BankDataProvider extends AbstractBackEndDataProvider<Bank, CrudFilt
             int position = banks.indexOf(existingItem.get());
 
             banks.remove(existingItem.get());
-            bankService.delete(existingItem.get().getIdBank());
-
             banks.add(position, item);
             bankService.update(item);
         } else {

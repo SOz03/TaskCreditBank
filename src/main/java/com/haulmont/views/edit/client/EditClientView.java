@@ -10,7 +10,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.PageTitle;
-import com.haulmont.views.MainLayout;
+import com.haulmont.views.menu.MainLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,7 +65,7 @@ public class EditClientView extends Div {
         crud.getGrid().removeColumnByKey("middleName");
         crud.getGrid().removeColumnByKey("phoneNumber");
         crud.getGrid().removeColumnByKey("mail");
-        crud.getGrid().removeColumnByKey("mainBank");
+        crud.getGrid().removeColumnByKey("bank");
 
         //crud.getGrid().addColumn(Client::getIdClient).setHeader("ID клиента");
         crud.getGrid().addColumn(Client::getFirstName).setHeader("Имя");
@@ -74,7 +74,7 @@ public class EditClientView extends Div {
         crud.getGrid().addColumn(Client::getNumberPassport).setHeader("Номер паспорта");
         crud.getGrid().addColumn(Client::getMail).setHeader("Почта");
         crud.getGrid().addColumn(Client::getPhoneNumber).setHeader("Номер телефона");
-        crud.getGrid().addColumn(Client::getMainBank).setHeader("Оформлен в банке");
+        crud.getGrid().addColumn(Client::getBank).setHeader("Привязан к банку");
 
         crud.setDataProvider(clientDataProvider);
 

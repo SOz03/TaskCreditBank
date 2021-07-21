@@ -1,11 +1,9 @@
-package com.haulmont.views;
+package com.haulmont.views.menu;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.haulmont.views.menu.MainMenuView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.Text;
@@ -25,8 +23,8 @@ import com.vaadin.flow.router.PageTitle;
 import com.haulmont.views.edit.client.EditClientView;
 import com.haulmont.views.edit.credit.EditCreditView;
 import com.haulmont.views.edit.bank.EditBankView;
-import com.haulmont.views.menu.ClientsAndCreditsView;
-import com.haulmont.views.menu.CreditOfferView;
+import com.haulmont.views.info.ClientsAndCreditsView;
+import com.haulmont.views.newoffer.CreditOfferView;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
@@ -38,11 +36,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 @PageTitle("Main")
 public class MainLayout extends AppLayout {
 
+    private final EditBankView editBankView;
+    private final EditClientView editClientView;
+    private final EditCreditView editCreditView;
+    private final MainMenuView mainMenuView;
+    private final ClientsAndCreditsView clientsAndCreditsView;
+    private final CreditOfferView creditOfferView;
+
     public static class MenuItemInfo {
 
-        private String text;
-        private String iconClass;
-        private Class<? extends Component> view;
+        private final String text;
+        private final String iconClass;
+        private final Class<? extends Component> view;
 
         public MenuItemInfo( String text, String iconClass, Class<? extends Component> view) {
             this.text = text;
@@ -63,12 +68,20 @@ public class MainLayout extends AppLayout {
     private final Tabs menu;
     private H1 viewTitle;
 
-    public MainLayout(/*@Autowired GreetService service*/) throws ParseException {
+    public MainLayout(@Autowired EditBankView editBankView, @Autowired CreditOfferView creditOfferView,
+                      @Autowired EditCreditView editCreditView, @Autowired EditClientView editClientView,
+                      @Autowired ClientsAndCreditsView clientsAndCreditsView, @Autowired MainMenuView mainMenuView) {
+        this.editBankView = editBankView;
+        this.editClientView = editClientView;
+        this.editCreditView = editCreditView;
+        this.creditOfferView = creditOfferView;
+        this.clientsAndCreditsView =clientsAndCreditsView;
+        this.mainMenuView = mainMenuView;
+
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
         menu = createMenu();
         addToDrawer(createDrawerContent(menu));
-//        service.createBD();
     }
 
     private Component createHeaderContent() {
@@ -117,20 +130,20 @@ public class MainLayout extends AppLayout {
         return tabs;
     }
 
-    @Autowired
     private List<Tab> createMenuItems() {
-        MenuItemInfo[] menuItems = new MenuItemInfo[]{ //
-                new MenuItemInfo("Главное меню", "", MainMenuView.class), //
+        MenuItemInfo[] menuItems = new MenuItemInfo[]{
 
-                new MenuItemInfo("Изменение клиентов", "",EditClientView.class), //
+                new MenuItemInfo("Главное меню", "", mainMenuView.getClass()),
 
-                new MenuItemInfo("Изменение кредитов", "", EditCreditView.class), //
+                new MenuItemInfo("Изменение клиентов", "",editClientView.getClass()),
 
-                new MenuItemInfo("Изменение банка", "", EditBankView.class), //
+                new MenuItemInfo("Изменение кредитов", "", editCreditView.getClass()),
 
-                new MenuItemInfo("Клиенты и кредиты", "", ClientsAndCreditsView.class), //
+                new MenuItemInfo("Изменение банка", "", editBankView.getClass()),
 
-                new MenuItemInfo("Кредитное предложение", "", CreditOfferView.class), //
+                new MenuItemInfo("Клиенты и кредиты", "", clientsAndCreditsView.getClass()),
+
+                new MenuItemInfo("Кредитное предложение", "", creditOfferView.getClass()),
 
         };
         List<Tab> tabs = new ArrayList<>();

@@ -17,6 +17,7 @@ public class ClientService extends CrudService<Client, String> {
     public ClientService(@Autowired ClientDAO clientRepository) {
         this.clientRepository = clientRepository;
     }
+
     @Override
     protected ClientDAO getRepository() {
         return clientRepository;
@@ -26,6 +27,10 @@ public class ClientService extends CrudService<Client, String> {
         return (List<Client>) clientRepository.findAll();
     }
 
-
-
+    public void updateUserById(String idClient, String numberPassport, String firstName,
+                               String lastName, String middleName, String phoneNumber,
+                               String mail, String bank) {
+        clientRepository.updateUserById(idClient, numberPassport, firstName,
+                lastName, middleName, phoneNumber, mail, bank);
+    }
 }

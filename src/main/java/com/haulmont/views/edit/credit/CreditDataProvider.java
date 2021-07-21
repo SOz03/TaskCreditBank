@@ -1,6 +1,5 @@
 package com.haulmont.views.edit.credit;
 
-import com.haulmont.model.entity.Client;
 import com.haulmont.model.entity.Credit;
 import com.haulmont.model.service.daoService.CreditService;
 import com.vaadin.flow.component.crud.CrudFilter;
@@ -119,8 +118,6 @@ public class CreditDataProvider extends AbstractBackEndDataProvider<Credit, Crud
             int position = credits.indexOf(existingItem.get());
 
             credits.remove(existingItem.get());
-            creditService.delete(existingItem.get().getIdCredit());
-
             credits.add(position, item);
             creditService.update(item);
         } else {

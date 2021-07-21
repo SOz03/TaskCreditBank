@@ -26,9 +26,10 @@ public class Client {
     private String phoneNumber;
     @Column(name = "mail")
     private String mail;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "main_bank")
-    private Bank mainBank;
+    private Bank bank;
 
     public Client(String numberPassport, String firstName, String lastName,
                   String middleName, String phoneNumber, String mail) {
@@ -41,29 +42,29 @@ public class Client {
         this.mail = mail;
     }
 
-    public Client(String numberPassport, String firstName,
+    public Client(String idClient, String numberPassport, String firstName,
                   String lastName, String middleName, String phoneNumber,
-                  String mail, Bank mainBank) {
-        this.idClient = UUID.randomUUID().toString();
+                  String mail, Bank bank) {
+        this.idClient = idClient;
         this.numberPassport = numberPassport;
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
         this.phoneNumber = phoneNumber;
         this.mail = mail;
-        this.mainBank = mainBank;
+        this.bank = bank;
     }
 
     public Client() {
 
     }
 
-    public Bank getMainBank() {
-        return mainBank;
+    public Bank getBank() {
+        return bank;
     }
 
-    public void setMainBank(Bank mainBank) {
-        this.mainBank = mainBank;
+    public void setBank(Bank bank) {
+        this.bank = bank;
     }
 
     public void setIdClient(String idClient) {
@@ -148,10 +149,6 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", middleName='" + middleName + '\'' +
-                '}';
+        return firstName + " " + lastName +  " " + middleName ;
     }
 }

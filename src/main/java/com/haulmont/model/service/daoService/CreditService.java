@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.vaadin.artur.helpers.CrudService;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
-public class CreditService extends CrudService<Credit, String > {
+public class CreditService extends CrudService<Credit, String> {
 
+    @Autowired
     private final CreditDAO creditDAO;
 
     public CreditService(@Autowired CreditDAO creditDAO) {
@@ -22,8 +24,12 @@ public class CreditService extends CrudService<Credit, String > {
         return creditDAO;
     }
 
-    public List<Credit> findAll(){
+    public List<Credit> findAll() {
         return (List<Credit>) creditDAO.findAll();
+    }
+
+    public Credit findByCreditLimit(BigDecimal creditLimit) {
+        return creditDAO.findByCreditLimit(creditLimit);
     }
 
 }
