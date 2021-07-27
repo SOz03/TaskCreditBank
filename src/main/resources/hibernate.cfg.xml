@@ -4,13 +4,15 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/credit_bank</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">123456</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
+        <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
+        <property name="hibernate.connection.url">jdbc:hsqldb:file:DB/creditbank</property>
+        <property name="hibernate.connection.username">sa</property>
+        <property name="hibernate.connection.password"/>
+
         <property name="show_sql">true</property>
+
         <mapping class="com.haulmont.model.entity.Client"/>
         <mapping class="com.haulmont.model.entity.Credit"/>
         <mapping class="com.haulmont.model.entity.Bank"/>

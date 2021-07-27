@@ -109,24 +109,30 @@ public class ClientDataProvider extends AbstractBackEndDataProvider<Client, Crud
         }
     }
 
-    public void persist(Client item) {
-        if (item.getIdClient() == null) {
-            item.setIdClient(UUID.randomUUID().toString());
+    public void persist(Client client) {
+        if (client.getIdClient() == null) {
+            client.setIdClient(UUID.randomUUID().toString());
         }
 
-        final Optional<Client> existingItem = find(item.getIdClient());
+        final Optional<Client> existingItem = find(client.getIdClient());
         if (existingItem.isPresent()) {
             int position = clients.indexOf(existingItem.get());
 
-            clients.remove(existingItem.get());
-            clients.add(position, item);
-            clientService.update(item);
-//            clientService.updateUserById(item.getIdClient(), item.getNumberPassport(),
-//                    item.getFirstName(), item.getLastName(), item.getMiddleName(),
-//                    item.getPhoneNumber(),item.getMail(), item.getBank().getIdBank());
+            existingItem.get().setIdClient(client.getIdClient());
+            existingItem.get().setFirstName(client.getFirstName());
+            existingItem.get().setLastName(client.getLastName());
+            existingItem.get().setMiddleName(client.getMiddleName());
+            existingItem.get().setNumberPassport(client.getNumberPassport());
+            existingItem.get().setPhoneNumber(client.getPhoneNumber());
+            existingItem.get().setMail(client.getMail());
+            existingItem.get().setBank(client.getBank());
+
+            clients.set(position, existingItem.get());
+            clientService.update(existingItem.get());
+
         } else {
-            clients.add(item);
-            clientService.update(item);
+            clients.add(client);
+            clientService.update(client);
         }
     }
 

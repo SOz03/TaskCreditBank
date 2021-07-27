@@ -7,7 +7,6 @@ import com.haulmont.model.entity.PaymentGraph;
 import com.haulmont.model.service.daoService.BankService;
 import com.haulmont.model.service.daoService.ClientService;
 import com.haulmont.model.service.daoService.CreditOfferService;
-import com.haulmont.model.service.daoService.PaymentGraphService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
@@ -40,13 +39,10 @@ public class ClientsViewService extends Div {
 
     public ClientsViewService(@Autowired BankService bankService,
                               @Autowired ClientService clientService,
-                              @Autowired CreditOfferService creditOfferService,
-                              @Autowired PaymentGraphService paymentGraphService) {
+                              @Autowired CreditOfferService creditOfferService) {
         this.bankService = bankService;
         this.creditOfferService = creditOfferService;
         this.clientService = clientService;
-
-        List<PaymentGraph> paymentGraphs = paymentGraphService.findAll();
 
         add(form());
     }
@@ -134,10 +130,18 @@ public class ClientsViewService extends Div {
             graphGrid.setVisible(false);
 
             if (selectBank.getValue() != null) {
-                for (Client client : clients) {
-                    if (client.getBank().getIdBank().equals(selectBank.getValue().getIdBank()))
-                        trueList.add(client);
+                selectBank.setReadOnly(true);
+                try{
+                    for (Client client : clients) {
+                        if (client.getBank()!=null && client.getBank().getIdBank().equals(selectBank.getValue().getIdBank()))
+                            trueList.add(client);
+                    }
                 }
+                catch (Exception e){
+                    System.err.println("Ошибка создания списка клиентов");
+                    e.getMessage();
+                }
+                selectBank.setReadOnly(false);
                 if (trueList.size() != 0) {
                     clientGrid.setItems(trueList);
                     clientGrid.setVisible(true);

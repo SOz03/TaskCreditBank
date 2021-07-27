@@ -1,5 +1,6 @@
 package com.haulmont.views.edit.credit;
 
+import com.haulmont.model.entity.Client;
 import com.haulmont.model.entity.Credit;
 import com.haulmont.model.service.daoService.CreditService;
 import com.vaadin.flow.component.crud.CrudFilter;
@@ -108,21 +109,25 @@ public class CreditDataProvider extends AbstractBackEndDataProvider<Credit, Crud
         }
     }
 
-    public void persist(Credit item) {
-        if (item.getIdCredit() == null) {
-            item.setIdCredit(UUID.randomUUID().toString());
+    public void persist(Credit credit) {
+        if (credit.getIdCredit() == null) {
+            credit.setIdCredit(UUID.randomUUID().toString());
         }
 
-        final Optional<Credit> existingItem = find(item.getIdCredit());
+        final Optional<Credit> existingItem = find(credit.getIdCredit());
         if (existingItem.isPresent()) {
             int position = credits.indexOf(existingItem.get());
 
-            credits.remove(existingItem.get());
-            credits.add(position, item);
-            creditService.update(item);
+            existingItem.get().setIdCredit(credit.getIdCredit());
+            existingItem.get().setCreditLimit(credit.getCreditLimit());
+            existingItem.get().setInterestRate(credit.getInterestRate());
+
+            credits.set(position, existingItem.get());
+            creditService.update(existingItem.get());
+
         } else {
-            credits.add(item);
-            creditService.update(item);
+            credits.add(credit);
+            creditService.update(credit);
         }
     }
 

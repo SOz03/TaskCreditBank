@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.haulmont.views.edit.creditoffer.EditCreditOfferView;
+import com.haulmont.views.edit.paymentgraph.EditPaymentGraphView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.Text;
@@ -35,10 +37,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Theme(themeFolder = "creditbank", variant = Lumo.DARK)
 @PageTitle("Main")
 public class MainLayout extends AppLayout {
-
     private final EditBankView editBankView;
     private final EditClientView editClientView;
     private final EditCreditView editCreditView;
+    private final EditCreditOfferView editCreditOfferView;
+    private final EditPaymentGraphView editPaymentGraphView;
     private final MainMenuView mainMenuView;
     private final ClientsAndCreditsView clientsAndCreditsView;
     private final CreditOfferView creditOfferView;
@@ -70,13 +73,18 @@ public class MainLayout extends AppLayout {
 
     public MainLayout(@Autowired EditBankView editBankView, @Autowired CreditOfferView creditOfferView,
                       @Autowired EditCreditView editCreditView, @Autowired EditClientView editClientView,
-                      @Autowired ClientsAndCreditsView clientsAndCreditsView, @Autowired MainMenuView mainMenuView) {
+                      @Autowired ClientsAndCreditsView clientsAndCreditsView, @Autowired MainMenuView mainMenuView,
+                      @Autowired EditCreditOfferView editCreditOfferView, @Autowired EditPaymentGraphView editPaymentGraphView,
+                      @Autowired DBService dbService) {
+        //dbService.setCreateDB();
+        this.editPaymentGraphView = editPaymentGraphView;
         this.editBankView = editBankView;
         this.editClientView = editClientView;
         this.editCreditView = editCreditView;
         this.creditOfferView = creditOfferView;
         this.clientsAndCreditsView =clientsAndCreditsView;
         this.mainMenuView = mainMenuView;
+        this.editCreditOfferView = editCreditOfferView;
 
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
@@ -140,6 +148,10 @@ public class MainLayout extends AppLayout {
                 new MenuItemInfo("Изменение кредитов", "", editCreditView.getClass()),
 
                 new MenuItemInfo("Изменение банка", "", editBankView.getClass()),
+
+                new MenuItemInfo("Изменение кредитных предложений","", editCreditOfferView.getClass()),
+
+                new MenuItemInfo("Изменение платежей", "", editPaymentGraphView.getClass()),
 
                 new MenuItemInfo("Клиенты и кредиты", "", clientsAndCreditsView.getClass()),
 

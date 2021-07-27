@@ -1,7 +1,6 @@
 package com.haulmont.model.dao;
 
 import com.haulmont.model.entity.Client;
-import com.haulmont.model.entity.Credit;
 import com.haulmont.model.entity.CreditOffer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

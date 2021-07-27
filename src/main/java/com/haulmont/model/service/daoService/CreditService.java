@@ -13,11 +13,7 @@ import java.util.List;
 public class CreditService extends CrudService<Credit, String> {
 
     @Autowired
-    private final CreditDAO creditDAO;
-
-    public CreditService(@Autowired CreditDAO creditDAO) {
-        this.creditDAO = creditDAO;
-    }
+    private CreditDAO creditDAO;
 
     @Override
     protected CreditDAO getRepository() {

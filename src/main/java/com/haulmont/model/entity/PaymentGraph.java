@@ -13,21 +13,21 @@ import java.util.UUID;
 @Getter
 @Setter
 @EqualsAndHashCode
-@Table(name = "payment_graph")
+@Table(/*name = "payment_graph"*/)
 public class PaymentGraph {
     @Id
-    @Column(name = "id_payment_graph")
+//    @Column(name = "id_payment_graph")
     private String idPaymentGraph;
-    @Column(name = "date_payment")
+//    @Column(name = "date_payment")
     private Date datePayment;
-    @Column(name = "amount_payment")
+//    @Column(name = "amount_payment")
     private BigDecimal amountPayment;
-    @Column(name = "amount_repayment")
+//    @Column(name = "amount_repayment")
     private BigDecimal amountRepayment;
-    @Column(name = "amount_interest")
+//    @Column(name = "amount_interest")
     private BigDecimal amountInterest;
     @ManyToOne
-    @JoinColumn(name = "id_credit_offer")
+//    @JoinColumn(name = "id_credit_offer")
     private CreditOffer creditOffer;
 
     public PaymentGraph(){}
@@ -36,6 +36,17 @@ public class PaymentGraph {
                         BigDecimal amountRepayment, BigDecimal amountInterest,
                         CreditOffer creditOffer) {
         this.idPaymentGraph = UUID.randomUUID().toString();
+        this.datePayment = datePayment;
+        this.amountPayment = amountPayment;
+        this.amountRepayment = amountRepayment;
+        this.amountInterest = amountInterest;
+        this.creditOffer = creditOffer;
+    }
+
+    public PaymentGraph(String idPaymentGraph, Date datePayment, BigDecimal amountPayment,
+                        BigDecimal amountRepayment, BigDecimal amountInterest,
+                        CreditOffer creditOffer) {
+        this.idPaymentGraph = idPaymentGraph;
         this.datePayment = datePayment;
         this.amountPayment = amountPayment;
         this.amountRepayment = amountRepayment;

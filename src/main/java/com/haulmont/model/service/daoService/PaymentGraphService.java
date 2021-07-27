@@ -12,11 +12,7 @@ import java.util.List;
 public class PaymentGraphService extends CrudService<PaymentGraph, String> {
 
     @Autowired
-    private final PaymentGraphDAO repository;
-
-    public PaymentGraphService(@Autowired PaymentGraphDAO repository) {
-        this.repository = repository;
-    }
+    private PaymentGraphDAO repository;
 
     @Override
     protected PaymentGraphDAO getRepository() {

@@ -7,16 +7,13 @@ import org.springframework.stereotype.Service;
 import org.vaadin.artur.helpers.CrudService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientService extends CrudService<Client, String> {
 
     @Autowired
-    private final ClientDAO clientRepository;
-
-    public ClientService(@Autowired ClientDAO clientRepository) {
-        this.clientRepository = clientRepository;
-    }
+    private ClientDAO clientRepository;
 
     @Override
     protected ClientDAO getRepository() {
@@ -27,10 +24,8 @@ public class ClientService extends CrudService<Client, String> {
         return (List<Client>) clientRepository.findAll();
     }
 
-    public void updateUserById(String idClient, String numberPassport, String firstName,
-                               String lastName, String middleName, String phoneNumber,
-                               String mail, String bank) {
-        clientRepository.updateUserById(idClient, numberPassport, firstName,
-                lastName, middleName, phoneNumber, mail, bank);
+    public Optional<Client> clientById(String ID){
+        return clientRepository.findById(ID);
     }
+
 }

@@ -8,16 +8,13 @@ import org.springframework.stereotype.Service;
 import org.vaadin.artur.helpers.CrudService;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class CreditOfferService extends CrudService<CreditOffer, String> {
 
     @Autowired
-    private final CreditOfferDAO repository;
-
-    public CreditOfferService(@Autowired CreditOfferDAO repository) {
-        this.repository = repository;
-    }
+    private CreditOfferDAO repository;
 
     @Override
     protected CreditOfferDAO getRepository() {
@@ -26,6 +23,10 @@ public class CreditOfferService extends CrudService<CreditOffer, String> {
 
     public CreditOffer findByClientAndAmountCredit(Client client, BigDecimal amountCredit) {
         return repository.findByClientAndAmountCredit(client, amountCredit);
+    }
+
+    public List<CreditOffer> findAll(){
+        return repository.findAll();
     }
 
     public CreditOffer findByClient(String idClient) {

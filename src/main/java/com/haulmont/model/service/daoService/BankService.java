@@ -11,13 +11,8 @@ import java.util.List;
 
 @Service
 public class BankService extends CrudService<Bank, String> {
-
     @Autowired
-    private final BankDAO repository;
-
-    public BankService(@Autowired BankDAO repository) {
-        this.repository = repository;
-    }
+    private BankDAO repository;
 
     @Override
     protected BankDAO getRepository() {

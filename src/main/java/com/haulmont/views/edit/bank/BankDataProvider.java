@@ -1,6 +1,7 @@
 package com.haulmont.views.edit.bank;
 
 import com.haulmont.model.entity.Bank;
+import com.haulmont.model.entity.Client;
 import com.haulmont.model.service.daoService.BankService;
 import com.vaadin.flow.component.crud.CrudFilter;
 import com.vaadin.flow.data.provider.AbstractBackEndDataProvider;
@@ -22,12 +23,16 @@ import java.util.stream.Stream;
 public class BankDataProvider extends AbstractBackEndDataProvider<Bank, CrudFilter> {
 
     private final BankService bankService;
-    private final List<Bank> banks;
+    private List<Bank> banks;
     private Consumer<Long> sizeChangeListener;
 
     public BankDataProvider(@Autowired BankService bankService) {
         this.bankService = bankService;
-        this.banks = bankService.findAll();
+        updateList();
+    }
+
+    public void updateList(){
+        banks = bankService.findAll();
     }
 
     @Override
@@ -108,21 +113,24 @@ public class BankDataProvider extends AbstractBackEndDataProvider<Bank, CrudFilt
         }
     }
 
-    public void persist(Bank item) {
-        if (item.getIdBank() == null) {
-            item.setIdBank(UUID.randomUUID().toString());
+    public void persist(Bank bank) {
+        if (bank.getIdBank() == null) {
+            bank.setIdBank(UUID.randomUUID().toString());
         }
 
-        final Optional<Bank> existingItem = find(item.getIdBank());
+        final Optional<Bank> existingItem = find(bank.getIdBank());
         if (existingItem.isPresent()) {
             int position = banks.indexOf(existingItem.get());
 
-            banks.remove(existingItem.get());
-            banks.add(position, item);
-            bankService.update(item);
+            existingItem.get().setIdBank(bank.getIdBank());
+            existingItem.get().setNameBank(bank.getNameBank());
+            existingItem.get().setClients(bank.getClients());
+
+            banks.set(position, existingItem.get());
+            bankService.update(existingItem.get());
         } else {
-            banks.add(item);
-            bankService.update(item);
+            banks.add(bank);
+            bankService.update(bank);
         }
     }
 

@@ -10,18 +10,24 @@ import java.util.UUID;
 @Entity
 @Setter
 @Getter
-@Table(name = "credits")
+@Table(/*name = "credits"*/)
 public class Credit {
     @Id
-    @Column(name = "id_credit")
+//    @Column(name = "id_credit")
     private String idCredit;
-    @Column(name = "credit_limit")
+//    @Column(name = "credit_limit")
     private BigDecimal creditLimit;
-    @Column(name = "interest_rate")
+//    @Column(name = "interest_rate")
     private BigDecimal interestRate;
 
     public Credit(BigDecimal creditLimit, BigDecimal interestRate) {
         this.idCredit = UUID.randomUUID().toString();
+        this.creditLimit = creditLimit;
+        this.interestRate = interestRate;
+    }
+
+    public Credit(String idCredit, BigDecimal creditLimit, BigDecimal interestRate) {
+        this.idCredit = idCredit;
         this.creditLimit = creditLimit;
         this.interestRate = interestRate;
     }

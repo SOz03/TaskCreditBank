@@ -9,14 +9,14 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@Table(name = "bank")
+@Table(/*name = "banks"*/)
 public class Bank {
 
     @Id
-    @Column(name = "id_bank")
+//    @Column(name = "id_bank")
     private String idBank;
 
-    @Column(name = "name_bank")
+//    @Column(name = "name_bank")
     private String nameBank;
 
     @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY, mappedBy = "bank")
@@ -28,6 +28,11 @@ public class Bank {
 
     public Bank(String nameBank) {
         this.idBank = UUID.randomUUID().toString();
+        this.nameBank = nameBank;
+    }
+
+    public Bank(String idBank, String nameBank) {
+        this.idBank = idBank;
         this.nameBank = nameBank;
     }
 

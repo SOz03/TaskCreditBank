@@ -1,11 +1,13 @@
 package com.haulmont.views.edit.client;
 
+import com.haulmont.model.entity.Bank;
 import com.haulmont.model.entity.Client;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.crud.*;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.listbox.ListBox;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.Route;
@@ -32,6 +34,7 @@ public class EditClientView extends Div {
         TextField numberPassport = new TextField("Номер паспорта");
         TextField mail = new TextField("Почта");
         TextField phoneNumber = new TextField("Номер");
+        ListBox<Bank> banks = new ListBox<>();
         FormLayout form = new FormLayout(firstName, lastName, middleName, numberPassport,
                 mail, phoneNumber);
 
@@ -42,6 +45,7 @@ public class EditClientView extends Div {
         binder.bind(numberPassport, Client::getNumberPassport, Client::setNumberPassport);
         binder.bind(mail, Client::getMail, Client::setMail);
         binder.bind(phoneNumber, Client::getPhoneNumber, Client::setPhoneNumber);
+        binder.bind(banks, Client::getBank, Client::setBank);
 
         return new BinderCrudEditor<>(binder, form);
     }

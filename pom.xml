@@ -151,7 +151,6 @@
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-spring-boot-starter</artifactId>
             <exclusions>
-                <!-- Excluding so that webjars are not included. -->
                 <exclusion>
                     <groupId>com.vaadin</groupId>
                     <artifactId>vaadin-core</artifactId>
@@ -163,14 +162,6 @@
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-select-flow</artifactId>
         </dependency>
-
-
-<!--        DataProvider-->
-<!--        <dependency>-->
-<!--            <groupId>com.vaadin</groupId>-->
-<!--            <artifactId>vaadin-server</artifactId>-->
-<!--            <version>8.13.0</version>-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>com.vaadin</groupId>
@@ -190,13 +181,11 @@
             <version>3.4.0</version>
         </dependency>
 
-<!--        MYSQL- DRIVER-->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.23</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -281,8 +270,18 @@
 
     <profiles>
         <profile>
-            <!-- Production mode is activated using -Pproduction -->
-            <id>production</id>
+            <id>hsqldb-project</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.hsqldb</groupId>
+                    <artifactId>hsqldb</artifactId>
+                    <version>2.4.1</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -299,52 +298,6 @@
                         </executions>
                         <configuration>
                             <productionMode>true</productionMode>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>it</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>start-spring-boot</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>start</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>stop-spring-boot</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>stop</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!-- Runs the integration tests (*IT) after the server is started -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <trimStackTrace>false</trimStackTrace>
-                            <enableAssertions>true</enableAssertions>
                         </configuration>
                     </plugin>
                 </plugins>

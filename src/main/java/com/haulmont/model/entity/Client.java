@@ -9,26 +9,26 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@Table(name = "clients")
+@Table(/*name = "clients"*/)
 public class Client {
     @Id
-    @Column(name = "id_client")
+//    @Column(name = "id_client")
     private String idClient;
-    @Column(name = "number_passport")
+//    @Column(name = "number_passport")
     private String numberPassport;
-    @Column(name = "first_name")
+//    @Column(name = "first_name")
     private String firstName;
-    @Column(name = "last_name")
+//    @Column(name = "last_name")
     private String lastName;
-    @Column(name = "middle_name")
+//    @Column(name = "middle_name")
     private String middleName;
-    @Column(name = "phone_number")
+//    @Column(name = "phone_number")
     private String phoneNumber;
-    @Column(name = "mail")
+//    @Column(name = "mail")
     private String mail;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "main_bank")
+//    @JoinColumn(name = "main_bank")
     private Bank bank;
 
     public Client(String numberPassport, String firstName, String lastName,

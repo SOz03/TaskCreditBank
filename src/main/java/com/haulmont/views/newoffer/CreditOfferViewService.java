@@ -123,7 +123,9 @@ public class CreditOfferViewService extends Div {
     public void calculationAmount() {
         Credit credit = creditService.findByCreditLimit(creditField.getValue());
         BigDecimal percent = credit.getInterestRate().multiply(new BigDecimal("0.01"));
-        amountCreditField.setValue(credit.getCreditLimit().multiply(percent).add(credit.getCreditLimit()));
+        amountCreditField.setValue(credit.getCreditLimit().multiply(percent)
+                .add(credit.getCreditLimit()).
+                        setScale(2,BigDecimal.ROUND_HALF_DOWN));
     }
 
     private void newCreditOffer() {

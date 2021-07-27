@@ -11,21 +11,21 @@ import java.util.UUID;
 @Getter
 @Setter
 @EqualsAndHashCode
-@Table(name = "credit_offer")
+@Table(/*name = "credit_offer"*/)
 public class CreditOffer{
     @Id
-    @Column(name = "id_credit_offer")
+//    @Column(name = "id_credit_offer")
     private String idCreditOffer;
-    @Column(name = "amount_credit")
+//   @Column(name = "amount_credit")
     private BigDecimal amountCredit;
     @ManyToOne
-    @JoinColumn(name = "bank")
+//    @JoinColumn(name = "bank")
     private Bank bank;
     @ManyToOne
-    @JoinColumn(name = "client")
+//    @JoinColumn(name = "client")
     private Client client;
     @ManyToOne
-    @JoinColumn(name = "credit")
+//    @JoinColumn(name = "credit")
     private Credit credit;
 
     @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER, mappedBy = "creditOffer")
@@ -33,6 +33,14 @@ public class CreditOffer{
 
     public CreditOffer(Client client, Credit credit, BigDecimal amountCredit, Bank bank) {
         this.idCreditOffer = UUID.randomUUID().toString();
+        this.client = client;
+        this.credit = credit;
+        this.amountCredit = amountCredit;
+        this.bank = bank;
+    }
+
+    public CreditOffer(String idCreditOffer, Client client, Credit credit, BigDecimal amountCredit, Bank bank) {
+        this.idCreditOffer = idCreditOffer;
         this.client = client;
         this.credit = credit;
         this.amountCredit = amountCredit;
